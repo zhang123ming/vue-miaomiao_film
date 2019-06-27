@@ -5,9 +5,65 @@ import App from './App'
 
 Vue.config.productionTip = false
 
-/* eslint-disable no-new */
+/**
+ *1、
+ *  router 
+ *  */ 
+import router  from './routers/index'
+
+ /**
+ *2、
+ *  vuex
+ *  */ 
+import store from './stores/index'
+
+
+
+
+ /**
+ *
+ *  
+ *  */ 
+
+
+ /**
+ *
+ *  
+ *  */ 
+
+
+ /**
+ *
+ *  
+ *  */ 
+
+
+ /**
+ *
+ *  
+ *  */ 
+
+
+ /**
+ *
+ *  
+ *  */ 
+
+
+ /**
+ *
+ *  
+ *  */ 
+
+
+ /**
+ *
+ *  挂载 router store
+ *  */ 
 new Vue({
   el: '#app',
+  store,
+  router,
   components: { App },
   template: '<App/>'
 })
