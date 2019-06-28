@@ -1,52 +1,21 @@
 <template>
   <div class="cinema_body">
+    		<Loading v-if="isLoading"></Loading>
     <ul>
-      <li>
+      <li v-for="(item,index) in ciList" :key="item.id">
         <div>
-          <span>大地影院(澳东世纪店)</span>
+          <span>{{item.nm}}</span>
           <span class="q">
-            <span class="price">22.9</span> 元起
+            <span class="price">{{item.sellPrice}}</span> 元起
           </span>
         </div>
         <div class="address">
-          <span>金州区大连经济技术开发区澳东世纪3层</span>
-          <span>1763.5km</span>
+          <span>{{item.addr}}</span>
+          <span>{{item.distance}}km</span>
         </div>
         <div class="card">
-          <div>小吃</div>
-          <div>折扣卡</div>
-        </div>
-      </li>
-      <li>
-        <div>
-          <span>大地影院(澳东世纪店)</span>
-          <span class="q">
-            <span class="price">22.9</span> 元起
-          </span>
-        </div>
-        <div class="address">
-          <span>金州区大连经济技术开发区澳东世纪3层</span>
-          <span>1763.5km</span>
-        </div>
-        <div class="card">
-          <div>小吃</div>
-          <div>折扣卡</div>
-        </div>
-      </li>
-      <li>
-        <div>
-          <span>大地影院(澳东世纪店)</span>
-          <span class="q">
-            <span class="price">22.9</span> 元起
-          </span>
-        </div>
-        <div class="address">
-          <span>金州区大连经济技术开发区澳东世纪3层</span>
-          <span>1763.5km</span>
-        </div>
-        <div class="card">
-          <div>小吃</div>
-          <div>折扣卡</div>
+          <div v-for="(itemCard,key) in item.tag" v-if="itemCard===1" :key="itemCard.key">{{key|formatCard()}}</div>
+        
         </div>
       </li>
     </ul>
@@ -57,14 +26,58 @@
 export default {
   name: "clilist",
   data() {
-    return {};
+    return {
+      ciList:[],//影院信息
+      isLoading:true,
+      prevId:-1,
+		};
   },
 
-  methods: {}
+  methods: {
+		getciLitInfo(){
+      var cityId=this.$store.state.city.id;
+      if(this.prevId===cityId){
+        return;
+      }
+			this.axios.get("/api/cinemaList?cityId="+cityId).then(res=>{
+			
+				var msg=res.data.msg;
+				if(msg==='ok'){
+          this.ciList=res.data.data.cinemas;
+          this.prevId=cityId;
+          // console.log(this.ciList)
+          this.isLoading=false;
+				}
+				
+			})
+		}
+	}
+	,
+	filters:{
+		formatCard(key){
+			var card=[
+				{key:'allowRefund',value:'改签'},
+					{key:'endorse',value:'退票'},
+						{key:'sell',value:'折扣'},
+							{key:'snack',value:'小吃'}
+				
+			];
+			for(var i=0;i<card.length;i++){
+				if(card[i].key===key){
+					return card[i].value;
+				}
+			}
+			return '';
+		}
+	},
+	created(){
+		this.getciLitInfo();
+	}
 };
 </script>
 <style scoped>
 .cinema_body {
+margin-top: 50px;
   flex: 1;
   overflow: auto;
 }
@@ -88,6 +101,15 @@ export default {
 .cinema_body .address {
   font-size: 13px;
   color: #666;
+	width: 100%;
+}
+.cinema_body .address span:first-child{
+display:block;                
+width:80%;
+word-break:keep-all;           
+white-space:nowrap;         
+overflow:hidden;              
+text-overflow:ellipsis;  
 }
 .cinema_body .address span:nth-of-type(2) {
   float: right;

@@ -23,7 +23,7 @@ body {
   clear: both;
 }
 
-#main {
+/* #main {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -36,4 +36,4 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-}
+} */
