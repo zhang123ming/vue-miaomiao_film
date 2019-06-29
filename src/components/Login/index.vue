@@ -15,8 +15,16 @@ export default {
 	data() {
 		return {};
 	},
-
-	methods: {}
+	created() {
+		this.getuserinfo();
+	},
+	methods: {
+		getuserinfo() {
+			this.axios.get('http://localhost:3000/api/userinfo').then(res => {
+				console.log(res);
+			});
+		}
+	}
 };
 </script>
 <style scoped>

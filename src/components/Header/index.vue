@@ -1,23 +1,24 @@
 <template>
-	<div id="header">
-		<h1>{{ title }}</h1>
-	</div>
+  <div id="header">
+    <slot></slot>
+    <h1>{{ title }}</h1>
+  </div>
 </template>
 
 <script>
 export default {
-	name: 'Header',
-	props: {
-		title: {
-			type: String,
-			default: '喵喵电影'
-		}
-	},
-	data() {
-		return {};
-	},
+  name: "Header",
+  props: {
+    title: {
+      type: String,
+      default: "喵喵电影"
+    }
+  },
+  data() {
+    return {};
+  },
 
-	methods: {}
+  methods: {}
 };
 </script>
 <
@@ -38,5 +39,5 @@ font-size: 18px;
 text-align: center;
 
 }
-
+#header i{ position: absolute; left: 5px; font-size: 26px;}
 </style>

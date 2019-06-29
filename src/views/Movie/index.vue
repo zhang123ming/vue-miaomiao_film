@@ -21,9 +21,9 @@
         <router-view></router-view>
       </keep-alive>
     </div>
-
     <!-- 底部 -->
     <Tabbar></Tabbar>
+    <router-view name="detail"></router-view>
   </div>
 </template>
 
@@ -143,8 +143,8 @@ export default {
   color: red;
 }
 
-.slide-enter-active {
-  animation: 13s detailMove;
+/* .slide-enter-active { */
+  /* animation: 13s detailMove;
 }
 @keyframes detailMove {
   0% {
@@ -153,5 +153,5 @@ export default {
   100% {
     transform: translateX(0);
   }
-}
+} */
 </style>
